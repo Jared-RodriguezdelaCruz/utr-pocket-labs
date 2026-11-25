@@ -21,3 +21,15 @@ export async function assignComputer({ computerId, userId, materia, horasUso }) 
   const { data } = await apiClient.post('/labs/assignments', { computerId, userId, materia, horasUso });
   return data;
 }
+
+// === pide las asignaciones, por ejemplo [{ assignmentId, pc, laboratorio, userId, estatus: 'ASIGNADA' }] ===
+export async function getAssignments() {
+  const { data } = await apiClient.get('/labs/assignments');
+  return data;
+}
+
+// === libera la PC, con reporteFalla en true la API la pasa a MANTENIMIENTO ===
+export async function releaseAssignment(id, { reporteFalla, descripcionFalla }) {
+  const { data } = await apiClient.patch(`/labs/assignments/${id}/release`, { reporteFalla, descripcionFalla });
+  return data;
+}
