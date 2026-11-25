@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import PrimaryButton from '../components/PrimaryButton';
 import { login } from '../services/authService';
-import { UTR_EMAIL_REGEX } from '../utils/constants';
+import { EMAIL_REGEX } from '../utils/constants';
 import { getErrorMessage } from '../utils/httpErrors';
 import { getToken, saveSession } from '../utils/session';
 import { authStyles, colors } from '../utils/styles';
@@ -45,9 +45,9 @@ export default function LoginScreen() {
       setError('Ingresa tu correo institucional y contraseña.');
       return;
     }
-    // === el correo tiene que ser institucional ===
-    if (!UTR_EMAIL_REGEX.test(form.email.trim())) {
-      setError('Usa tu correo institucional (@utr.edu.mx).');
+    // === el correo tiene que tener forma de correo ===
+    if (!EMAIL_REGEX.test(form.email.trim())) {
+      setError('Escribe un correo válido.');
       return;
     }
 
