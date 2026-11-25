@@ -15,6 +15,16 @@ export const colors = {
   errorBg: '#FEF2F2',
   errorBorder: '#E97373',
   errorText: '#991B1B',
+  // === estatus de las computadoras: texto, fondo y borde fino de los chips ===
+  availableText: '#166534',
+  availableBg: '#ECFDF5',
+  availableBorder: '#62D3AD',
+  occupiedText: '#B91C1C',
+  occupiedBg: '#FEF2F2',
+  occupiedBorder: '#E97373',
+  maintenanceText: '#92400E',
+  maintenanceBg: '#FFFBEB',
+  maintenanceBorder: '#F9C15F',
 };
 
 // === estilos que comparten las pantallas de las pestañas (Mapa y Mi sesión) ===
