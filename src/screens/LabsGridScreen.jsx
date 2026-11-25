@@ -112,6 +112,11 @@ export default function LabsGridScreen() {
     setEstatus(value);
   };
 
+  // === al tocar "Asignar equipo" abrimos la hoja C2 con los datos de la PC ===
+  const handleSelect = (computer) => {
+    navigation.navigate('AssignComputer', { computer });
+  };
+
   // === botón Reintentar: quitamos el error y sumamos un reintento para que los efectos corran otra vez ===
   const handleRetry = () => {
     setError(null);
@@ -212,7 +217,20 @@ export default function LabsGridScreen() {
           <Text style={styles.cardNumber}>{item.numeroInventario}</Text>
           <Text style={styles.cardSpecs}>{item.especificaciones}</Text>
           <StatusBadge estatus={item.estatus} />
-          {STATUS_NOTES[item.estatus] ? <Text style={styles.cardNote}>{STATUS_NOTES[item.estatus]}</Text> : null}
+          {/* === solo las PCs disponibles se pueden pedir, las demás muestran su nota === */}
+          {item.estatus === COMPUTER_STATUS.DISPONIBLE ? (
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel={`Asignar equipo ${item.numeroInventario}`}
+              onPress={() => handleSelect(item)}
+              android_ripple={{ color: colors.primaryPressed }}
+              style={styles.cardButton}
+            >
+              <Text style={styles.cardButtonText}>Asignar equipo</Text>
+            </Pressable>
+          ) : (
+            <Text style={styles.cardNote}>{STATUS_NOTES[item.estatus]}</Text>
+          )}
         </View>
       )}
     />
@@ -310,6 +328,20 @@ const styles = StyleSheet.create({
     marginTop: 2,
     color: colors.textSecondary,
     fontSize: 12,
+  },
+  cardButton: {
+    height: 40,
+    marginTop: 4,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    backgroundColor: colors.primary,
+  },
+  cardButtonText: {
+    color: colors.white,
+    fontSize: 13,
+    fontWeight: '700',
   },
   loading: {
     alignItems: 'center',
