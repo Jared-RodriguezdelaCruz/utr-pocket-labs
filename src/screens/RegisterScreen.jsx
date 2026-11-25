@@ -57,6 +57,11 @@ export default function RegisterScreen() {
       setError('Usa tu correo institucional (@utr.edu.mx).');
       return;
     }
+    // === la API pide contraseñas de al menos 6 caracteres ===
+    if (form.password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres.');
+      return;
+    }
     // === las dos contraseñas tienen que ser iguales ===
     if (form.password !== form.confirmPassword) {
       setError('Las contraseñas no coinciden.');
