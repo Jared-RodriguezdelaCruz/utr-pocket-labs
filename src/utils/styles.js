@@ -17,6 +17,29 @@ export const colors = {
   errorText: '#991B1B',
 };
 
+// === estilos que comparten las pantallas de las pestañas (Mapa y Mi sesión) ===
+export const screenStyles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 24,
+    backgroundColor: colors.page,
+  },
+  title: {
+    color: colors.text,
+    fontSize: 24,
+    lineHeight: 30,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+  },
+  subtitle: {
+    marginTop: 4,
+    color: colors.textSecondary,
+    fontSize: 14,
+  },
+});
+
 export const authStyles = StyleSheet.create({
   safe: {
     flex: 1,
