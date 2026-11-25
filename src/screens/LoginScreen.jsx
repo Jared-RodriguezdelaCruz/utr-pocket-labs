@@ -4,9 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import PrimaryButton from '../components/PrimaryButton';
 import { login } from '../services/authService';
-import { EMAIL_REGEX } from '../utils/constants';
+import { EMAIL_REGEX, ROLES } from '../utils/constants';
 import { getErrorMessage } from '../utils/httpErrors';
-import { getToken, saveSession } from '../utils/session';
+import { clearSession, getStoredUser, getToken, saveSession } from '../utils/session';
 import { authStyles, colors } from '../utils/styles';
 
 export default function LoginScreen() {
@@ -21,6 +21,12 @@ export default function LoginScreen() {
   useEffect(() => {
     const checkSession = async () => {
       const token = await getToken();
+      const user = await getStoredUser();
+      // === si quedó guardada una sesión de ADMIN la borramos, en el celular solo entran alumnos ===
+      if (token && user?.rol === ROLES.ADMIN) {
+        await clearSession();
+        return;
+      }
       // === si ya hay token nos saltamos el login y vamos directo a las pestañas ===
       if (token) {
         navigation.replace('Main');
@@ -56,6 +62,11 @@ export default function LoginScreen() {
     try {
       // === mandamos correo (sin espacios) y contraseña, la API regresa el token y el usuario ===
       const session = await login({ ...form, email: form.email.trim() });
+      // === la app es para alumnos: una cuenta ADMIN no guarda sesión ni entra ===
+      if (session.user.rol === ROLES.ADMIN) {
+        setError('Las cuentas de administrador entran por la versión web.');
+        return;
+      }
       // === guardamos token y usuario en SecureStore para no pedir login otra vez ===
       await saveSession(session);
       // === replace y no navigate para que el botón de atrás no regrese al login ===
