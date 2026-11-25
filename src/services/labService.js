@@ -15,3 +15,9 @@ export async function getComputers({ laboratorio, estatus }) {
   });
   return data;
 }
+
+// === aparta una PC para el usuario, regresa algo como { assignmentId, estatus: 'ASIGNADA', inicio } ===
+export async function assignComputer({ computerId, userId, materia, horasUso }) {
+  const { data } = await apiClient.post('/labs/assignments', { computerId, userId, materia, horasUso });
+  return data;
+}
