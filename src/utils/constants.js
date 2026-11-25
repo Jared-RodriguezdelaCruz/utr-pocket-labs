@@ -34,6 +34,9 @@ export const LABS = [
 // === la matrícula son exactamente 4 números, por ejemplo 1234 ===
 export const MATRICULA_REGEX = /^\d{4}$/;
 
-// === solo aceptamos correos institucionales que terminen en @utr.edu.mx ===
+// === cualquier correo con forma nombre@dominio.algo, el login lo usa porque las cuentas del profe son @equipo-c2.utr ===
+export const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// === en el registro solo aceptamos correos institucionales que terminen en @utr.edu.mx ===
 export const UTR_EMAIL_REGEX = /^[^\s@]+@utr\.edu\.mx$/i;
 

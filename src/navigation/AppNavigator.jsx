@@ -2,7 +2,7 @@ import { createStaticNavigation } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
-import SessionScreen from '../screens/SessionScreen';
+import MainTabs from './MainTabs';
 
 // === aquí se registran las pantallas, la app siempre arranca en Login y sin header ===
 const RootStack = createNativeStackNavigator({
@@ -11,7 +11,8 @@ const RootStack = createNativeStackNavigator({
   screens: {
     Login: LoginScreen,
     Register: RegisterScreen,
-    Session: SessionScreen,
+    // === después del login entramos a las pestañas Mapa y Mi sesión ===
+    Main: MainTabs,
   },
 });
 

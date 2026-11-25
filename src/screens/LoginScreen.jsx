@@ -4,13 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import PrimaryButton from '../components/PrimaryButton';
 import { login } from '../services/authService';
-import { UTR_EMAIL_REGEX } from '../utils/constants';
+import { EMAIL_REGEX } from '../utils/constants';
 import { getErrorMessage } from '../utils/httpErrors';
 import { getToken, saveSession } from '../utils/session';
 import { authStyles, colors } from '../utils/styles';
 
 export default function LoginScreen() {
-  // === con navigation nos movemos a Register o a Session ===
+  // === con navigation nos movemos a Register o a las pestañas (Main) ===
   const navigation = useNavigation();
   // === estados: lo que escribe el usuario, si está cargando y el mensaje de error ===
   const [form, setForm] = useState({ email: '', password: '' });
@@ -21,9 +21,9 @@ export default function LoginScreen() {
   useEffect(() => {
     const checkSession = async () => {
       const token = await getToken();
-      // === si ya hay token nos saltamos el login y vamos directo a Session ===
+      // === si ya hay token nos saltamos el login y vamos directo a las pestañas ===
       if (token) {
-        navigation.replace('Session');
+        navigation.replace('Main');
       }
     };
 
@@ -45,9 +45,9 @@ export default function LoginScreen() {
       setError('Ingresa tu correo institucional y contraseña.');
       return;
     }
-    // === el correo tiene que ser institucional ===
-    if (!UTR_EMAIL_REGEX.test(form.email.trim())) {
-      setError('Usa tu correo institucional (@utr.edu.mx).');
+    // === el correo tiene que tener forma de correo ===
+    if (!EMAIL_REGEX.test(form.email.trim())) {
+      setError('Escribe un correo válido.');
       return;
     }
 
@@ -59,7 +59,7 @@ export default function LoginScreen() {
       // === guardamos token y usuario en SecureStore para no pedir login otra vez ===
       await saveSession(session);
       // === replace y no navigate para que el botón de atrás no regrese al login ===
-      navigation.replace('Session');
+      navigation.replace('Main');
     } catch (requestError) {
       // === si la API falla mostramos el mensaje que arma getErrorMessage ===
       setError(getErrorMessage(requestError));

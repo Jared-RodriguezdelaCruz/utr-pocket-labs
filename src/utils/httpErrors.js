@@ -12,6 +12,8 @@ export function getErrorMessage(error) {
   // === sin response es que ni siquiera llegamos al servidor ===
   if (!error.response) return 'No hay conexión con el servidor.';
   const { status, data } = error.response;
+  // === en un 400 la API manda el detalle por campo, mostramos el primero ===
+  if (data?.errors?.length) return data.errors[0].mensaje;
   // === si la API mandó su mensaje usamos ese ===
   if (data?.message) return data.message;
   if (status >= 500) return STATUS_MESSAGES[500];
