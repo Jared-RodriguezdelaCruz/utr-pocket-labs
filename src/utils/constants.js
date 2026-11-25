@@ -29,6 +29,12 @@ export const STATUS_FILTERS = [
 // === horas que se pueden elegir al asignar una PC, como el segmentado del kit ===
 export const SESSION_HOURS = [1, 2, 3, 4];
 
+// === estatus de una asignación, tal cual los manda la API ===
+export const ASSIGNMENT_STATUS = {
+  ASIGNADA: 'ASIGNADA',
+  LIBERADA: 'LIBERADA',
+};
+
 // === la matrícula son exactamente 4 números, por ejemplo 1234 ===
 export const MATRICULA_REGEX = /^\d{4}$/;
 
