@@ -4,7 +4,8 @@ import { clearSession, getToken } from '../utils/session';
 // === cliente único para hablar con la API, la URL sale del .env ===
 const apiClient = axios.create({
   baseURL: process.env.EXPO_PUBLIC_API_BASE_URL,
-  timeout: 10000,
+  // === 30 s de espera porque el servidor en Render puede tardar en despertar ===
+  timeout: 30000,
 });
 
 // === antes de cada petición le pegamos el x-api-token y, si hay sesión, el Bearer ===
