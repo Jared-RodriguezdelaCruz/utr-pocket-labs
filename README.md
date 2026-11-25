@@ -24,7 +24,7 @@ npx expo start
 | `EXPO_PUBLIC_API_BASE_URL` | URL base de la API (incluye `/api`) |
 | `EXPO_PUBLIC_API_APP_TOKEN` | Token de aplicación (header `x-api-token`) |
 
-En el emulador de Android, `localhost` es el propio emulador: usa `http://10.0.2.2:3000/api`.
+La API del curso está en `https://proyecto-idgs9-v1.onrender.com/api` y su documentación (Swagger) en <https://proyecto-idgs9-v1.onrender.com/api/docs/>. Es pública, así que funciona igual en Expo Go, en el emulador y en el APK. El token del equipo lo da el docente: va solo en `.env`, nunca en un commit.
 
 ## Ramas
 
